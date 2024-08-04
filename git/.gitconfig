@@ -1,0 +1,8 @@
+[submodule]
+	recurse = true
+[user]
+	name = Artem Medvedev
+  email = i@ddtkey.com
+
+[includeIf "gitdir:~/work/**"]
+  path = ~/work/.gitconfig
