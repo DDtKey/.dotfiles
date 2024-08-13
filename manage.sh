@@ -52,7 +52,7 @@ cleanup_env() {
 
 bootstrap() {
   echo "🚀 Bootstrapping the environment..."
-  "$SCRIPT_DIR/install-dependencies.sh"
+  "$SCRIPT_DIR/install-deps.sh"
   setup_env
 }
 
