@@ -9,8 +9,9 @@ local wp = require("modules/wallpapers")
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 19
-config.color_scheme = "TokyoNight Storm"
-config.enable_tab_bar = false
+config.color_scheme = "Tokyo Night Moon"
+--config.enable_tab_bar = false
+config.hide_tab_bar_if_only_one_tab = true
 
 config.window_decorations = "RESIZE"
 
