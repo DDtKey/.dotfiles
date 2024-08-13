@@ -56,14 +56,14 @@ install_apt_packages() {
   echo "🔄 Updating package list..."
   sudo apt-get update || error "Failed to update package list."
   echo "📦 Installing packages with apt-get..."
-  sudo apt-get install -y "${1[@]}" || error "Failed to install APT packages."
+  sudo apt-get install -y "${@}" || error "Failed to install APT packages."
 }
 
 install_brew_packages() {
   echo "🔄 Updating Homebrew..."
   brew update || error "Failed to update Homebrew."
   echo "📦 Installing packages with Homebrew..."
-  brew install "${1[@]}" || error "Failed to install Brew packages."
+  brew install "${@}" || error "Failed to install Brew packages."
 }
 
 setup_apt_repositories() {
@@ -121,4 +121,3 @@ main() {
 }
 
 main
-
