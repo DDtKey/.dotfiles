@@ -47,7 +47,7 @@ is_macos() {
 }
 
 is_debian_based() {
-  [[ -f /etc/os-release ]] && . /etc/os-release && [[ "$ID" == "debian" || "$ID_LIKE" == *"debian"* ]]
+  [[ -f /etc/os-release ]] && source /etc/os-release && [[ "$ID" == "debian" || "$ID_LIKE" == *"debian"* ]]
 }
 
 echo "⏳ Dependency installation initiated 💻"

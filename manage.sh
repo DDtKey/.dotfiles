@@ -52,8 +52,11 @@ cleanup_env() {
 
 bootstrap() {
   echo "🚀 Bootstrapping the environment..."
-  "$SCRIPT_DIR/install-deps.sh"
-  setup_env
+  if "$SCRIPT_DIR/install-deps.sh"; then
+    setup_env
+  else
+    echo "❌ Failed to install dependencies. Aborting setup."
+  fi
 }
 
 if [ -z "$1" ]; then
