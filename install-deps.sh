@@ -7,7 +7,7 @@ set -e
 # --------------------------------------------
 
 # Common packages to install across all platforms
-COMMON_PACKAGES=("stow" "fish" "neovim" "wezterm" "just")
+COMMON_PACKAGES=("stow" "fish" "neovim" "wezterm" "just" "cmake")
 
 # Cargo crates to install
 CARGO_CRATES=("starship")
