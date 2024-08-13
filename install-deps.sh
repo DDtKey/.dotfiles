@@ -10,7 +10,7 @@ set -e
 COMMON_PACKAGES=("stow" "fish" "neovim" "wezterm" "just" "cmake")
 
 # Cargo crates to install
-CARGO_CRATES=("starship")
+CARGO_CRATES=("starship" "atuin")
 
 # Homebrew installation URL
 HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
@@ -87,10 +87,13 @@ install_rust() {
 }
 
 install_cargo_crates() {
+  echo "🔧 Installing cargo-binstall"
+  cargo install cargo-binstall | error "Failed to install cargo-binstall"
+
   for crate in "${CARGO_CRATES[@]}"; do
     if ! command_exists "$crate"; then
-      echo "🔧 Installing cargo crate: $crate"
-      cargo install "$crate" || error "Failed to install cargo crate: $crate"
+      echo "🔧 Installing cargo crate with binstall: $crate"
+      cargo binstall "$crate" || error "Failed to install cargo crate: $crate"
     else
       echo "✅ Cargo crate '$crate' is already installed."
     fi
