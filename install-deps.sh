@@ -88,7 +88,7 @@ install_rust() {
 
 install_cargo_crates() {
   echo "🔧 Installing cargo-binstall"
-  cargo install cargo-binstall | error "Failed to install cargo-binstall"
+  cargo install cargo-binstall || error "Failed to install cargo-binstall"
 
   for crate in "${CARGO_CRATES[@]}"; do
     if ! command_exists "$crate"; then
