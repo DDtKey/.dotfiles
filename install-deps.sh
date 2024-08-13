@@ -1,45 +1,34 @@
 #!/bin/bash
 
-# Define a list of packages that should be installed on all platforms
-COMMON_PACKAGES=("stow" "fish" "neovim" "starship" "wezterm")
+set -e
 
-install_macos() {
-  echo "🍏 Detected macOS. Installing dependencies..."
+# --------------------------------------------
+# Configuration Variables
+# --------------------------------------------
 
-  # Install Homebrew if not installed
-  if ! command -v brew &>/dev/null; then
-    echo "🏠 Homebrew not found. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || {
-      echo "❌ Homebrew installation failed."
-      exit 1
-    }
-  else
-    echo "✅ Homebrew is already installed."
-  fi
+# Common packages to install across all platforms
+COMMON_PACKAGES=("stow" "fish" "neovim" "wezterm" "just")
 
-  echo "🔄 Installing packages with Homebrew..."
-  brew install "${COMMON_PACKAGES[@]}" || {
-    echo "❌ Package installation failed."
-    exit 1
-  }
+# Cargo crates to install
+CARGO_CRATES=("starship")
+
+# Homebrew installation URL
+HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+
+# Rust installation script URL
+RUST_INSTALL_URL="https://sh.rustup.rs"
+
+# --------------------------------------------
+# Utility Functions
+# --------------------------------------------
+
+error() {
+  echo -e "❌ $1" >&2
+  exit 1
 }
 
-install_debian() {
-  echo "🐧 Detected Debian-based system. Installing dependencies..."
-
-  sudo apt-get update || {
-    echo "❌ Failed to update package list."
-    exit 1
-  }
-
-  DEBIAN_PACKAGES=("curl")
-  ALL_PACKAGES=("${COMMON_PACKAGES[@]}" "${DEBIAN_PACKAGES[@]}")
-
-  echo "🔄 Installing packages with apt-get..."
-  sudo apt-get install -y "${ALL_PACKAGES[@]}" || {
-    echo "❌ Package installation failed."
-    exit 1
-  }
+command_exists() {
+  command -v "$1" &>/dev/null
 }
 
 is_macos() {
@@ -47,18 +36,89 @@ is_macos() {
 }
 
 is_debian_based() {
-  [[ -f /etc/os-release ]] && source /etc/os-release && [[ "$ID" == "debian" || "$ID_LIKE" == *"debian"* ]]
+  [[ -f /etc/os-release ]] && . /etc/os-release && [[ "$ID_LIKE" == *"debian"* || "$ID" == "debian" ]]
 }
 
-echo "⏳ Dependency installation initiated 💻"
+# --------------------------------------------
+# Installation Functions
+# --------------------------------------------
 
-if is_macos; then
-  install_macos
-elif is_debian_based; then
-  install_debian
-else
-  echo "❌ Unsupported operating system 😵"
-  exit 1
-fi
+install_homebrew() {
+  if ! command_exists brew; then
+    echo "🍺 Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL $HOMEBREW_INSTALL_URL)" || error "Failed to install Homebrew."
+  else
+    echo "✅ Homebrew is already installed."
+  fi
+}
 
-echo "🚀 Dependency installation completed successfully! ✅"
+install_apt_packages() {
+  echo "🔄 Updating package list..."
+  sudo apt-get update || error "Failed to update package list."
+  echo "📦 Installing packages with apt-get..."
+  sudo apt-get install -y "${1[@]}" || error "Failed to install APT packages."
+}
+
+install_brew_packages() {
+  echo "🔄 Updating Homebrew..."
+  brew update || error "Failed to update Homebrew."
+  echo "📦 Installing packages with Homebrew..."
+  brew install "${1[@]}" || error "Failed to install Brew packages."
+}
+
+setup_apt_repositories() {
+  echo "🔑 Adding WezTerm GPG key and repository..."
+  curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg || error "Failed to add WezTerm GPG key."
+  echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list >/dev/null || error "Failed to add WezTerm repository."
+}
+
+install_rust() {
+  if ! command_exists rustc; then
+    echo "🔧 Installing Rust..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y || error "Failed to install Rust."
+    source "$HOME/.cargo/env"
+  else
+    echo "✅ Rust is already installed."
+  fi
+}
+
+install_cargo_crates() {
+  for crate in "${CARGO_CRATES[@]}"; do
+    if ! command_exists "$crate"; then
+      echo "🔧 Installing cargo crate: $crate"
+      cargo install "$crate" || error "Failed to install cargo crate: $crate"
+    else
+      echo "✅ Cargo crate '$crate' is already installed."
+    fi
+  done
+}
+
+# --------------------------------------------
+# Main
+# --------------------------------------------
+
+main() {
+  echo "⏳ Starting dependency installation..."
+
+  if is_macos; then
+    echo "🍏 Detected macOS."
+    install_homebrew
+    install_brew_packages "${COMMON_PACKAGES[@]}"
+  elif is_debian_based; then
+    echo "🐧 Detected Debian-based system."
+    install_apt_packages "curl" # Ensure curl is installed first
+    setup_apt_repositories
+    install_apt_packages "${COMMON_PACKAGES[@]}"
+  else
+    error "Unsupported operating system."
+  fi
+
+  # Install common tools
+  install_rust
+  install_cargo_crates
+
+  echo "🚀 Dependency installation completed successfully! ✅"
+}
+
+main
+
