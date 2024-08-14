@@ -9,14 +9,8 @@ set -e
 # Common packages to install across all platforms
 COMMON_PACKAGES=("stow" "fish" "neovim" "wezterm" "just" "cmake")
 
-# Cargo crates to install
-CARGO_CRATES=("starship" "atuin")
-
 # Homebrew installation URL
 HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-
-# Rust installation script URL
-RUST_INSTALL_URL="https://sh.rustup.rs"
 
 # --------------------------------------------
 # Utility Functions
@@ -71,33 +65,21 @@ setup_apt_repositories() {
   curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg || error "Failed to add WezTerm GPG key."
   echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list >/dev/null || error "Failed to add WezTerm repository."
 
-  echo "🔑 Adding Prebuilt-MRP GPG key and repository"
+  echo "🔑 Adding Prebuilt-MRP GPG key and repository..."
   curl -fsSL 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --dearmor | sudo tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1>/dev/null
   echo "deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)" | sudo tee /etc/apt/sources.list.d/prebuilt-mpr.list
 }
 
-install_rust() {
-  if ! command_exists rustc; then
-    echo "🔧 Installing Rust..."
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y || error "Failed to install Rust."
-    source "$HOME/.cargo/env"
+install_by_url() {
+  local url="$1"
+  local tool_name="$2"
+
+  if ! command_exists "$tool_name"; then
+    echo "🔧 Installing $tool_name..."
+    curl -fsSL "$url" | sh || error "Failed to install $tool_name from URL."
   else
-    echo "✅ Rust is already installed."
+    echo "✅ $tool_name is already installed."
   fi
-}
-
-install_cargo_crates() {
-  echo "🔧 Installing cargo-binstall"
-  cargo install cargo-binstall || error "Failed to install cargo-binstall"
-
-  for crate in "${CARGO_CRATES[@]}"; do
-    if ! command_exists "$crate"; then
-      echo "🔧 Installing cargo crate with binstall: $crate"
-      cargo binstall "$crate" || error "Failed to install cargo crate: $crate"
-    else
-      echo "✅ Cargo crate '$crate' is already installed."
-    fi
-  done
 }
 
 # --------------------------------------------
@@ -120,9 +102,10 @@ main() {
     error "Unsupported operating system."
   fi
 
-  # Install common tools
-  install_rust
-  install_cargo_crates
+  # Install tools from URLs
+  install_by_url "https://sh.rustup.rs" "rustup"
+  install_by_url "https://starship.rs/install.sh" "starship"
+  install_by_url "https://setup.atuin.sh" "atuin"
 
   echo "🚀 Dependency installation completed successfully! ✅"
 }
