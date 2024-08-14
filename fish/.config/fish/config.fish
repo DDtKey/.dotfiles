@@ -4,4 +4,7 @@ end
 
 set -g fish_greeting
 starship init fish | source
-source ~/.config/fish/functions/local_fns.fish
+
+if test -f ~/.config/fish/functions/local_fns.fish
+    source ~/.config/fish/functions/local_fns.fish
+end
