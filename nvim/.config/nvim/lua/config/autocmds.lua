@@ -6,3 +6,11 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   command = "silent! wall",
   nested = true,
 })
+
+-- Autoformat settings
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "*.rs" },
+  callback = function()
+    vim.b.autoformat = true
+  end,
+})
