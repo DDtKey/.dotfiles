@@ -6,7 +6,7 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # Configuration directories to manage
-CONFIGS=("nvim" "git" "fish" "starship" "alacritty" "wezterm")
+CONFIGS=("nvim" "git" "fish" "starship" "alacritty" "wezterm" "gitui")
 
 # Change to the dotfiles directory
 cd "$DOTFILES_DIR" || {

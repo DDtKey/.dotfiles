@@ -7,7 +7,7 @@ set -e
 # --------------------------------------------
 
 # Common packages to install across all platforms
-COMMON_PACKAGES=("stow" "fish" "neovim" "wezterm" "just" "cmake")
+COMMON_PACKAGES=("stow" "fish" "neovim" "wezterm" "just" "cmake" "ripgrep" "fd")
 
 # Homebrew installation URL
 HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
