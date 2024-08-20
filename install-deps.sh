@@ -93,6 +93,8 @@ main() {
     echo "🍏 Detected macOS."
     install_homebrew
     install_brew_packages "${COMMON_PACKAGES[@]}"
+    MACOS_PACKAGES=("rectangle")
+    install_brew_packages "${MACOS_PACKAGES[@]}"
   elif is_debian_based; then
     echo "🐧 Detected Debian-based system."
     install_apt_packages "curl" # Ensure curl is installed first
