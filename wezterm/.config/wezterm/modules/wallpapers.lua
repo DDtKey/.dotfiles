@@ -1,6 +1,8 @@
 local wezterm = require("wezterm")
 local M = {}
 
+math.randomseed(os.time())
+
 M.random_wallpaper = function(dir)
 	local wallpapers = {}
 	for _, v in ipairs(wezterm.glob(dir)) do
