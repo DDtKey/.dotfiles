@@ -7,6 +7,9 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
+      on_colors = function(colors)
+        colors.border = colors.white
+      end,
     },
   },
   {
