@@ -7,3 +7,12 @@
 [includeIf "gitdir:~/work/**"]
   path = ~/work/.gitconfig
 
+[merge]
+	tool = nvimdiff
+[diff]
+	tool = nvimdiff
+[difftool "vimdiff"]
+	layout = LOCAL,REMOTE
+[mergetool "vimdiff"]
+	layout = LOCAL,BASE,REMOTE / MERGED
+
