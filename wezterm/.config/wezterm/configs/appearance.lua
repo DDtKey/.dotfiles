@@ -7,7 +7,7 @@ local wp = require("modules/wallpapers")
 
 M.apply_to_config = function(config)
   config.font = wezterm.font("JetBrainsMono Nerd Font")
-  config.font_size = 19
+  config.font_size = 14
   config.color_scheme = "Tokyo Night Moon"
   --config.enable_tab_bar = false
   config.hide_tab_bar_if_only_one_tab = true
