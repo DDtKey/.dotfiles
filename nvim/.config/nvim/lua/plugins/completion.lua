@@ -10,8 +10,8 @@ return {
             cmp = { enabled = true },
           },
         },
+        { "hrsh7th/cmp-emoji" },
       },
-      dependencies = { "hrsh7th/cmp-emoji" },
     },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
