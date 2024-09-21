@@ -20,3 +20,8 @@ fish_add_path ~/.cargo/bin
 fish_add_path ~/.local/bin
 fish_add_path ~/go/bin
 
+# Initialize rbenv if installed
+if type -q rbenv
+    rbenv init - | source
+end
+
