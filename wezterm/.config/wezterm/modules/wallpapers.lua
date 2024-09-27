@@ -17,12 +17,12 @@ M.random_wallpaper = function(dir)
 			File = { path = rnd_wallpaper },
 		},
 		hsb = {
-			brightness = 0.09,
-      saturation = 0.8,
+			brightness = 1.0,
+      saturation = 1.0,
 		},
 		horizontal_align = "Center",
     vertical_align = "Middle",
-		opacity = 1.0,
+		opacity = 0.25,
 	}
 end
 

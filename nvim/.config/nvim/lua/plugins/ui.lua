@@ -10,6 +10,24 @@ return {
       },
       on_colors = function(colors)
         colors.border = colors.white
+        colors.comment = "#aaaaaa"
+      end,
+      on_highlights = function(hl, colors)
+        hl.LineNrAbove = {
+          fg = colors.comment
+        }
+        hl.LineNrBelow = {
+          fg = colors.comment
+        }
+        hl.CursorLineNr = {
+          fg = colors.orange
+        }
+        hl.ColorColumn = {
+          bg = colors.bg_highlight
+        }
+        hl.NeoTreeDotfile = {
+          fg = colors.comment
+        }
       end,
     },
   },

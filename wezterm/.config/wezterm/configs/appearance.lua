@@ -14,9 +14,23 @@ M.apply_to_config = function(config)
 
   config.window_decorations = "RESIZE"
 
-  config.window_background_opacity = 0.8
   config.macos_window_background_blur = 10
   config.background = {
+		{
+			source = {
+				Gradient = {
+					orientation = 'Vertical',
+					colors = {
+            "#24283b",
+            "#1f2335"
+					},
+					interpolation = 'Linear',
+					blend = 'Rgb',
+				},
+			},
+      height = '100%',
+      width = '100%'
+		},
     wp.random_wallpaper(wezterm.config_dir .. "/wallpapers/**"),
   }
 end
