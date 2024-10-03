@@ -4,8 +4,8 @@
 	name = Artem Medvedev
   email = i@ddtkey.com
 
-[url "git://github.com"]
-  insteadOf = https://github.com
+[url "git@github.com:"]
+  insteadOf = https://github.com/
 
 [includeIf "gitdir:~/work/**"]
   path = ~/work/.gitconfig
