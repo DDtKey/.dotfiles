@@ -14,46 +14,40 @@ return {
       end,
       on_highlights = function(hl, colors)
         hl.LineNrAbove = {
-          fg = colors.comment
+          fg = colors.comment,
         }
         hl.LineNrBelow = {
-          fg = colors.comment
+          fg = colors.comment,
         }
         hl.CursorLineNr = {
-          fg = colors.orange
+          fg = colors.orange,
         }
         hl.ColorColumn = {
-          bg = colors.bg_highlight
+          bg = colors.bg_highlight,
         }
         hl.NeoTreeDotfile = {
-          fg = colors.comment
+          fg = colors.comment,
         }
       end,
     },
   },
   {
-      "nvim-lualine/lualine.nvim",
-      opts = {
-          options = {
-              theme = "ayu_mirage",
-              component_separators = "",
-              section_separators = { left = "", right = "" },
-          },
-          sections = {
-              lualine_a = { { "mode", separator = { left = "" }, right_padding = 2 } },
-              lualine_y = {
-                  { "progress", separator = " ", padding = { left = 1, right = 0 } },
-                  { "location", padding = { left = 0, right = 1 } },
-              },
-              lualine_z = {
-                  {
-                      --function()
-                      --  --return " " .. os.date("%R")
-                      --end,
-                    "encoding", separator = { right = "" },
-                  },
-              },
-          },
-      },
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      -- opts.options.theme = "ayu_mirage"
+      opts.options.component_separators = { left = "", right = "" }
+      opts.options.section_separators = { left = "", right = "" }
+
+      opts.sections.lualine_a = {{
+        "mode",
+        separator = { left = "" },
+        right_padding = 2,
+      }}
+
+      opts.sections.lualine_z = {{
+        "encoding",
+        separator = { right = "" },
+      }}
+    end,
   },
 }
