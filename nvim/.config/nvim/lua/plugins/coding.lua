@@ -50,6 +50,9 @@ return {
                 enable = true,
               },
             },
+            rustfmt = {
+              extraArgs = { "+nightly" },
+            },
             -- Add clippy lints for Rust.
             checkOnSave = true,
             procMacro = {
