@@ -7,3 +7,14 @@ vim.g.autoformat = false
 
 -- Enable colorcolumn
 vim.api.nvim_set_option_value("colorcolumn", "120", {})
+
+vim.filetype.add({
+  extension = {
+    gotmpl = 'gotmpl',
+  },
+  pattern = {
+    [".*/templates/.*%.tpl"] = "helm",
+    [".*/templates/.*%.ya?ml"] = "helm",
+    ["helmfile.*%.ya?ml"] = "helm",
+  },
+})
