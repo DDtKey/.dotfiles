@@ -48,6 +48,7 @@ return {
               loadOutDirsFromCheck = true,
               buildScripts = {
                 enable = true,
+                rebuildOnSave = true,
               },
             },
             rustfmt = {
@@ -61,6 +62,15 @@ return {
                 ["async-trait"] = { "async_trait" },
                 ["napi-derive"] = { "napi" },
                 ["async-recursion"] = { "async_recursion" },
+              },
+            },
+            diagnostics = {
+              enable = true,
+              disabled = {
+                "proc-macros-disabled",
+                "proc-macro-disabled",
+                "unresolved-macro-call",
+                "unresolved-proc-macro",
               },
             },
           },
