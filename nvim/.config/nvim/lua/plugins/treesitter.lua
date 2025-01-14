@@ -18,6 +18,7 @@ return {
         "regex",
         "ron",
         "rust",
+        "ruby",
         "toml",
         "typescript",
         "vim",
