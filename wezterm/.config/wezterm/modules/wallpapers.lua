@@ -22,7 +22,7 @@ M.random_wallpaper = function(dir)
 		},
 		horizontal_align = "Center",
     vertical_align = "Middle",
-		opacity = 0.25,
+		opacity = 0.12,
 	}
 end
 

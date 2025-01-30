@@ -21,8 +21,12 @@ M.apply_to_config = function(config)
 				Gradient = {
 					orientation = 'Vertical',
 					colors = {
-            "#24283b",
-            "#1f2335"
+            -- blue (tokyonight moon):
+              -- "#24283b",
+              -- "#1f2335"
+            -- gray (darcula JetBrains)
+              -- "#484848", -- dark gray
+              "#383838" -- bck color
 					},
 					interpolation = 'Linear',
 					blend = 'Rgb',
