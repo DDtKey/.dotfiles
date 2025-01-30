@@ -12,10 +12,10 @@ return {
     opts = {
       transparent = vim.g.transparent_enabled,
       style = "night",
-      -- styles = {
-      --   sidebars = "transparent",
-      --   floats = "transparent",
-      -- },
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
       on_colors = function(colors)
         colors.border = colors.white
         colors.comment = "#aaaaaa"
@@ -47,11 +47,10 @@ return {
   },
   {
     "ray-x/starry.nvim",
-    opts = function(_, opts)
+    opts = function(_, _)
       local config = {
         disable = {
-          -- background = vim.g.transparent_enabled,
-          background = true
+          background = vim.g.transparent_enabled,
         }
       }
 
