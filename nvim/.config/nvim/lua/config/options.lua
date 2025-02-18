@@ -5,6 +5,9 @@
 -- Disable auto-formatting globally (to enable on per-filetype basis, see autocmds)
 vim.g.autoformat = false
 
+-- Explicitly specify the picker to use
+vim.g.lazyvim_picker = "telescope"
+
 -- Enable colorcolumn
 vim.api.nvim_set_option_value("colorcolumn", "120", {})
 

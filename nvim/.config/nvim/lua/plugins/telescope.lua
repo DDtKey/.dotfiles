@@ -1,5 +1,21 @@
 return {
   {
+    "nvim-telescope/telescope.nvim",
+    opts = function()
+      local actions = require("telescope.actions")
+
+      return {
+        defaults = {
+          mappings = {
+            i = {
+              ["<c-r>"] = actions.to_fuzzy_refine
+            },
+          }
+        }
+      }
+    end
+  },
+  {
     "princejoogie/dir-telescope.nvim",
     -- telescope.nvim is a required dependency
     requires = {"nvim-telescope/telescope.nvim"},
