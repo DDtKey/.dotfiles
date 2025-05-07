@@ -5,6 +5,7 @@ local wezterm = require('wezterm')
 -- Load custom modules
 local wp = require("modules/wallpapers")
 
+
 M.apply_to_config = function(config)
   config.font = wezterm.font("JetBrainsMono Nerd Font")
   config.font_size = 14
@@ -15,6 +16,7 @@ M.apply_to_config = function(config)
   config.window_decorations = "RESIZE"
 
   config.macos_window_background_blur = 10
+
   config.background = {
 		{
 			source = {
@@ -35,8 +37,24 @@ M.apply_to_config = function(config)
       height = '100%',
       width = '100%'
 		},
-    wp.random_wallpaper(wezterm.config_dir .. "/wallpapers/**"),
+    {
+      source = {
+        File = { path = wp.current_wallpaper() }
+      },
+      hsb = {
+        brightness = 1.0,
+        saturation = 1.0,
+      },
+      horizontal_align = "Center",
+      vertical_align = "Middle",
+      opacity = 0.12,
+    }
   }
+end
+
+M.change_wallpaper = function()
+  wp.update_wallpaper()
+  wezterm.reload_configuration()
 end
 
 return M
