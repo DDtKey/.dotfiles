@@ -27,6 +27,9 @@ return {
         hl.LineNrBelow = {
           fg = colors.comment,
         }
+        hl.LineNr = {
+          fg = colors.comment,
+        }
         hl.CursorLineNr = {
           fg = colors.orange,
         }
