@@ -12,6 +12,19 @@ return {
         hide_numbers = true,    -- Hide line numbers in the terminal window
         hide_signcolumn = true, -- Hide the sign column in the terminal window
       },
+      -- Keymaps
+        keymaps = {
+          toggle = {
+            normal = "<C-,>",       -- Normal mode keymap for toggling Claude Code, false to disable
+            terminal = "<C-,>",     -- Terminal mode keymap for toggling Claude Code, false to disable
+            variants = {
+              continue = "<leader>aC", -- Normal mode keymap for Claude Code with continue flag
+              verbose = "<leader>aV",  -- Normal mode keymap for Claude Code with verbose flag
+            },
+          },
+          window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
+          scrolling = true,         -- Enable scrolling keymaps (<C-f/b>) for page up/down
+        }
     })
 
     vim.keymap.set('n', '<leader>ac', '<cmd>ClaudeCode<CR>', { desc = 'Toggle Claude Code' })
