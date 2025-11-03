@@ -22,9 +22,14 @@ return {
     },
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     optional = true,
-    opts = { ensure_installed = { "codelldb" } },
+    opts = {
+      ensure_installed = {
+        "codelldb", "typos-lsp", "just-lsp",
+        "yaml-language-server", "lua-language-server", "json-lsp"
+      }
+    },
   },
   {
     "mrcjkb/rustaceanvim",
