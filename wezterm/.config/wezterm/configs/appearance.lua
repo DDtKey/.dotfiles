@@ -10,6 +10,7 @@ M.apply_to_config = function(config)
   config.font = wezterm.font("JetBrainsMono Nerd Font")
   config.font_size = 14
   config.color_scheme = "Tokyo Night Moon"
+  config.scrollback_lines = 10000
   --config.enable_tab_bar = false
   config.hide_tab_bar_if_only_one_tab = true
 
